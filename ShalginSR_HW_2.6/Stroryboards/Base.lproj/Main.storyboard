@@ -96,14 +96,26 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="she-uF-AkU">
                                         <rect key="frame" x="130" y="0.0" width="135" height="140"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZbE-ii-X87">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZbE-ii-X87">
                                                 <rect key="frame" x="-2" y="0.0" width="139" height="31"/>
+                                                <color key="minimumTrackTintColor" systemColor="systemRedColor"/>
+                                                <connections>
+                                                    <action selector="slidersAction:" destination="35b-Rr-ToK" eventType="valueChanged" id="dgy-7g-vbl"/>
+                                                </connections>
                                             </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="icZ-06-zWA">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.40000000000000002" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="icZ-06-zWA">
                                                 <rect key="frame" x="-2" y="55" width="139" height="31"/>
+                                                <color key="minimumTrackTintColor" systemColor="systemGreenColor"/>
+                                                <connections>
+                                                    <action selector="slidersAction:" destination="35b-Rr-ToK" eventType="valueChanged" id="CQN-jb-3mV"/>
+                                                </connections>
                                             </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gfx-5h-REl">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gfx-5h-REl">
                                                 <rect key="frame" x="-2" y="110" width="139" height="31"/>
+                                                <color key="minimumTrackTintColor" systemColor="systemBlueColor"/>
+                                                <connections>
+                                                    <action selector="slidersAction:" destination="35b-Rr-ToK" eventType="valueChanged" id="SkU-Cw-jSJ"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                     </stackView>
@@ -165,6 +177,18 @@
                             <constraint firstItem="wJ3-aa-ORu" firstAttribute="bottom" secondItem="7lI-CR-vbI" secondAttribute="bottom" constant="40" id="r4w-9x-HwW"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="blueLabel" destination="RNV-ZK-YmE" id="S4h-Oc-n9U"/>
+                        <outlet property="blueSlider" destination="gfx-5h-REl" id="htK-up-3th"/>
+                        <outlet property="blueTextField" destination="dHl-9S-Z5J" id="yne-8H-gPB"/>
+                        <outlet property="colorView" destination="ITc-qR-v1v" id="34W-pb-sEn"/>
+                        <outlet property="greenLabel" destination="Nb9-O3-Vdt" id="nnK-1u-qN6"/>
+                        <outlet property="greenSlider" destination="icZ-06-zWA" id="83I-OY-7TP"/>
+                        <outlet property="greenTextField" destination="oxE-8V-2vN" id="6UA-lb-7yn"/>
+                        <outlet property="redLabel" destination="4BK-rB-EIc" id="Nbb-tF-D8V"/>
+                        <outlet property="redSlider" destination="ZbE-ii-X87" id="DDs-h7-8ct"/>
+                        <outlet property="redTextField" destination="4Ma-kj-XvV" id="xOL-jX-A2C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Zq-vH-DtQ" sceneMemberID="firstResponder"/>
             </objects>
@@ -192,6 +216,15 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
