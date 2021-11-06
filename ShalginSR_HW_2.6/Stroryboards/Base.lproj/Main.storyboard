@@ -125,17 +125,26 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.77" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Ma-kj-XvV">
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="35.333333333333336"/>
                                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="textFieldsAction:" destination="35b-Rr-ToK" eventType="editingDidEnd" id="Bvf-E0-XL0"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.77" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oxE-8V-2vN">
                                                 <rect key="frame" x="0.0" y="52.333333333333314" width="60" height="35.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="textFieldsAction:" destination="35b-Rr-ToK" eventType="editingDidEnd" id="Pfr-jC-Qdc"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.77" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dHl-9S-Z5J">
                                                 <rect key="frame" x="0.0" y="104.66666666666669" width="60" height="35.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="textFieldsAction:" destination="35b-Rr-ToK" eventType="editingDidEnd" id="tAg-Bg-EKT"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <constraints>

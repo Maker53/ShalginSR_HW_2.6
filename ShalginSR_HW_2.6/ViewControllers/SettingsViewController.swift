@@ -32,6 +32,7 @@ class SettingsViewController: UIViewController {
         
         setUIColor()
         setValue(for: redLabel, greenLabel, blueLabel)
+        setValue(for: redTextField, greenTextField, blueTextField)
     }
     
     // MARK: - IB Actions
@@ -39,9 +40,35 @@ class SettingsViewController: UIViewController {
         setUIColor()
         
         switch sender {
-        case redSlider: redLabel.text = string(from: redSlider)
-        case greenSlider: greenLabel.text = string(from: greenSlider)
-        default: blueLabel.text = string(from: blueSlider)
+        case redSlider:
+            redLabel.text = string(from: redSlider)
+            redTextField.text = redLabel.text
+        case greenSlider:
+            greenLabel.text = string(from: greenSlider)
+            greenTextField.text = string(from: greenSlider)
+        default:
+            blueLabel.text = string(from: blueSlider)
+            blueTextField.text = string(from: blueSlider)
+        }
+    }
+    
+    @IBAction func textFieldsAction(_ sender: UITextField) {
+        switch sender {
+        case redTextField:
+            redSlider.value = checkValueBelongingToRange(
+                value: redTextField,
+                range: redSlider
+            )
+        case greenTextField:
+            greenSlider.value = checkValueBelongingToRange(
+                value: greenTextField,
+                range: greenSlider
+            )
+        default:
+            blueSlider.value = checkValueBelongingToRange(
+                value: blueTextField,
+                range: blueSlider
+            )
         }
     }
     
@@ -68,7 +95,60 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    private func setValue(for textFields: UITextField...) {
+        textFields.forEach { textField in
+            switch textField {
+            case redTextField:
+                redTextField.text = string(from: redSlider)
+            case greenTextField:
+                greenTextField.text = string(from: greenSlider)
+            default:
+                blueTextField.text = string(from: blueSlider)
+            }
+        }
+    }
+
     private func string(from slider: UISlider) -> String {
         String(format: "%.2f", slider.value)
+    }
+}
+
+// MARK: - Extension
+extension SettingsViewController {
+    private func checkValueBelongingToRange(
+        value textField: UITextField,
+        range slider: UISlider
+    ) -> Float {
+        guard let inputValue = textField.text, !inputValue.isEmpty else {
+            showAlert(with: "Text field is empty", and: "Please, set the value")
+            return slider.minimumValue
+        }
+        
+        if let value = Float(inputValue) {
+            if value < slider.minimumValue {
+                showAlert(with: "Range error", and: "Minimum value: 0.0")
+                return slider.minimumValue
+            } else if value > slider.maximumValue {
+                showAlert(with: "Range error", and: "Maximum value: 1.0")
+                return slider.maximumValue
+            } else {
+                return value
+            }
+        } else {
+            showAlert(with: "Wrong format", and: "Please, use only numbers")
+            return slider.minimumValue
+        }
+    }
+    
+    private func showAlert(with title: String, and message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
