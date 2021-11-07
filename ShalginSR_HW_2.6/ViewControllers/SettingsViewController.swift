@@ -24,25 +24,32 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet var colorView: UIView!
     
+    //MARK: - Public Properties
+    var delegate: SettingsViewControllerDelegate!
+    
     // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
+        
         colorView.layer.cornerRadius = 15
         
-        setUIColor()
+        setUIColor(for: colorView)
         setValue(for: redLabel, greenLabel, blueLabel)
         setValue(for: redTextField, greenTextField, blueTextField)
     }
     
     // MARK: - IB Actions
     @IBAction func slidersAction(_ sender: UISlider) {
-        setUIColor()
+        setUIColor(for: colorView)
         
         switch sender {
         case redSlider:
             redLabel.text = string(from: redSlider)
-            redTextField.text = redLabel.text
+            redTextField.text = string(from: redSlider)
         case greenSlider:
             greenLabel.text = string(from: greenSlider)
             greenTextField.text = string(from: greenSlider)
@@ -52,29 +59,15 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    @IBAction func textFieldsAction(_ sender: UITextField) {
-        switch sender {
-        case redTextField:
-            redSlider.value = checkValueBelongingToRange(
-                value: redTextField,
-                range: redSlider
-            )
-        case greenTextField:
-            greenSlider.value = checkValueBelongingToRange(
-                value: greenTextField,
-                range: greenSlider
-            )
-        default:
-            blueSlider.value = checkValueBelongingToRange(
-                value: blueTextField,
-                range: blueSlider
-            )
-        }
+    @IBAction func doneButtonPressed() {
+        view.endEditing(true)
+        delegate.setViewColor(from: colorView)
+        dismiss(animated: true)
     }
     
-    // MARK: - Private Methods
-    private func setUIColor() {
-        colorView.backgroundColor = UIColor(
+    // MARK: - Work With Outlets Private Methods
+    private func setUIColor(for view: UIView) {
+        view.backgroundColor = UIColor(
             red: CGFloat(redSlider.value),
             green: CGFloat(greenSlider.value),
             blue: CGFloat(blueSlider.value),
@@ -113,31 +106,59 @@ class SettingsViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
-extension SettingsViewController {
-    private func checkValueBelongingToRange(
-        value textField: UITextField,
-        range slider: UISlider
-    ) -> Float {
+// MARK: - Extension: UI Text Fields Delegate
+extension SettingsViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         guard let inputValue = textField.text, !inputValue.isEmpty else {
             showAlert(with: "Text field is empty", and: "Please, set the value")
-            return slider.minimumValue
+            return
+        }
+        guard let numberValue = Float(inputValue) else {
+            showAlert(with: "Wrong format", and: "Please, use only numbers")
+            return
         }
         
-        if let value = Float(inputValue) {
-            if value < slider.minimumValue {
+        switch textField {
+        case redTextField:
+            redSlider.value = checkValueBelongingToRange(
+                value: numberValue,
+                range: redSlider
+            )
+            redLabel.text = string(from: redSlider)
+            setUIColor(for: colorView)
+        case greenTextField:
+            greenSlider.value = checkValueBelongingToRange(
+                value: numberValue,
+                range: greenSlider
+            )
+            greenLabel.text = string(from: greenSlider)
+            setUIColor(for: colorView)
+        default:
+            blueSlider.value = checkValueBelongingToRange(
+                value: numberValue,
+                range: blueSlider
+            )
+            blueLabel.text = string(from: blueSlider)
+            setUIColor(for: colorView)
+        }
+    }
+}
+
+// MARK: - Extension: Check Error Private Methods
+extension SettingsViewController {
+    private func checkValueBelongingToRange(
+        value textField: Float,
+        range slider: UISlider
+    ) -> Float {
+            if textField < slider.minimumValue {
                 showAlert(with: "Range error", and: "Minimum value: 0.0")
                 return slider.minimumValue
-            } else if value > slider.maximumValue {
+            } else if textField > slider.maximumValue {
                 showAlert(with: "Range error", and: "Maximum value: 1.0")
                 return slider.maximumValue
             } else {
-                return value
+                return textField
             }
-        } else {
-            showAlert(with: "Wrong format", and: "Please, use only numbers")
-            return slider.minimumValue
-        }
     }
     
     private func showAlert(with title: String, and message: String) {
